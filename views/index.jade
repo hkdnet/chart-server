@@ -4,5 +4,10 @@ html(lang='ja')
     meta(charset='utf-8')
     title simple-chart
     script(src='scripts/index.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/d3/3.5.13/d3.min.js')
   body
-    | hello
+    #chart
+      svg
+    textarea(cols=100 rows=20)
+    .console
+      button#exec
