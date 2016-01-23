@@ -17,19 +17,21 @@ var dataset = [
 window.addEventListener('DOMContentLoaded', function() {
 (function($, $$, undefined) {
   var chartSize = {
-    width: 300,
-    height: 300
+    width: 620,
+    height: 620
   };
   var xName = "height";
   var yName = "age";
+  var axisPadding = 20;
+  var padding = 10;
   var linearScaleFactory = function(name, padding) {
     var min = _.minBy(dataset, function(d) { return d[name]; })[name];
     var max = _.maxBy(dataset, function(d) { return d[name]; })[name];
     return d3.scale.linear()
                    .domain([min, max])
-                   .range([padding, chartSize.width - padding]);
+                   .range([padding + axisPadding,
+                           chartSize.width - padding - axisPadding]);
   }
-  var padding = 10;
   var xScale = linearScaleFactory(xName, padding);
   var yScale = linearScaleFactory(yName, padding);
   var svg = d3.select('#chart').append('svg').attr(chartSize);
@@ -40,7 +42,13 @@ window.addEventListener('DOMContentLoaded', function() {
     cy: function(d) { return yScale(d[yName]); },
     r: 5
   });
-  svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + chartSize.height + ")").call(xAxis);
-  svg.append("g").attr("class", "y axis").attr("transform", "translate(0," + 0 + ")").call(yAxis);
+  svg.append("g").attr({
+    "class": "x axis",
+    transform: "translate(0," + (chartSize.height - padding - axisPadding) + ")"
+  }).call(xAxis);
+  svg.append("g").attr({
+      "class": "y axis",
+      transform: "translate(" + (padding + axisPadding) +  ", 0)"
+  }).call(yAxis);
 })(document.querySelector.bind(document), document.querySelectorAll.bind(document));
 });
