@@ -20,23 +20,27 @@ window.addEventListener('DOMContentLoaded', function() {
     width: 300,
     height: 300
   };
-  var minHeight = _.minBy(dataset, function(d) { return d.height; }).height;
-  var maxHeight = _.maxBy(dataset, function(d) { return d.height; }).height;
-  var heightScale = function(height) {
-    var minmax = maxHeight - minHeight;
-    return (height - minHeight) * (chartSize.width - 20) / (minmax) + 10;
-  };
-  var minBust = _.minBy(dataset, function(d) { return d.bust; }).bust;
-  var maxBust = _.maxBy(dataset, function(d) { return d.bust; }).bust;
-  var bustScale = function(bust) {
-    var minmax = maxBust - minBust;
-    return (bust - minBust) * (chartSize.height - 20) / minmax + 10;
-  };
+  var xName = "height";
+  var yName = "age";
+  var linearScaleFactory = function(name, padding) {
+    var min = _.minBy(dataset, function(d) { return d[name]; })[name];
+    var max = _.maxBy(dataset, function(d) { return d[name]; })[name];
+    return d3.scale.linear()
+                   .domain([min, max])
+                   .range([padding, chartSize.width - padding]);
+  }
+  var padding = 10;
+  var xScale = linearScaleFactory(xName, padding);
+  var yScale = linearScaleFactory(yName, padding);
   var svg = d3.select('#chart').append('svg').attr(chartSize);
+  var xAxis = d3.svg.axis().scale(xScale).orient("bottom");;
+  var yAxis = d3.svg.axis().scale(yScale).orient("left");;
   svg.selectAll('circle').data(dataset).enter().append('circle').attr({
-    cx: function(d) { return heightScale(d.height); },
-    cy: function(d) { return bustScale(d.bust); },
+    cx: function(d) { return xScale(d[xName]); },
+    cy: function(d) { return yScale(d[yName]); },
     r: 5
   });
+  svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + chartSize.height + ")").call(xAxis);
+  svg.append("g").attr("class", "y axis").attr("transform", "translate(0," + 0 + ")").call(yAxis);
 })(document.querySelector.bind(document), document.querySelectorAll.bind(document));
 });
