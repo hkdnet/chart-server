@@ -32,17 +32,10 @@ window.addEventListener('DOMContentLoaded', function() {
     var min = options['min'] === undefined ? _.minBy(dataset, function(d) { return d[name]; })[name] : options['min'];
     var max = options['max'] === undefined ? _.maxBy(dataset, function(d) { return d[name]; })[name] : options['max'];
 
-    var scale = d3.scale.linear();
-    if (options['reverse']) {
-      console.log(name + ' is reversed.')
-      scale.domain([max, min])
-           .range([padding + axisPadding,
-                   chartSize.width - padding - axisPadding]);
-    } else {
-      scale.domain([min, max])
-           .range([padding + axisPadding,
-                   chartSize.width - padding - axisPadding]);
-    }
+    var scale = d3.scale.linear()
+                  .domain(options['reverse'] ? [max, min] : [min, max])
+                  .range([padding + axisPadding,
+                          chartSize.width - padding - axisPadding]);
     return scale;
 
   }
@@ -56,7 +49,7 @@ window.addEventListener('DOMContentLoaded', function() {
   svg.selectAll('circle').data(dataset).enter().append('circle').attr({
     cx: function(d) { return xScale(d[xName]); },
     cy: function(d) { return yScale(d[yName]); },
-    r: 5
+    r: function(d) { return Math.sqrt(d.bust - 70) * 2; }
   });
   svg.append("g").attr({
     "class": "x axis",
