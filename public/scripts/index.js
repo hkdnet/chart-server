@@ -45,11 +45,20 @@ window.addEventListener('DOMContentLoaded', function() {
   var svg = d3.select('#chart').append('svg').attr(chartSize);
   var xAxis = d3.svg.axis().scale(xScale).orient("bottom");;
   var yAxis = d3.svg.axis().scale(yScale).orient("left");;
-  svg.selectAll('circle').data(dataset).enter().append('circle').attr({
-    cx: function(d) { return xScale(d[xName]); },
-    cy: function(d) { return yScale(d[yName]); },
-    r: function(d) { return Math.sqrt(d.bust - 70) * 2; }
+  var g = svg.selectAll('g').data(dataset).enter().append('g').attr({
+    transform: function(d) {
+      return "translate(" + xScale(d[xName]) + ", " + yScale(d[yName]) + ")";
+    }
   });
+  g.append('circle').attr({
+    r: function(d) { return Math.sqrt(d.bust - 70) * 4; },
+    fill: 'black'
+  })
+  g.append('text').attr({
+    'text-anchor': "middle",
+    'dy': ".35em",
+    'fill': "white"
+  }).text(function(d) { return d.name; })
   svg.append("g").attr({
     "class": "x axis",
     transform: "translate(0," + (chartSize.height - padding - axisPadding) + ")"
