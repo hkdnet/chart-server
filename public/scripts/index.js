@@ -39,7 +39,7 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   });
   g.append('circle').attr({
-    r: function(d) { return Math.sqrt(d.bust - 70) * 6; },
+    r: function(d) { return Math.sqrt(d.bust - 65) * 6; },
     fill: function(d) { return d.color; }
   })
   g.append('text').attr({
