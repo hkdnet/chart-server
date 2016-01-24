@@ -25,8 +25,8 @@ window.addEventListener('DOMContentLoaded', function() {
                           chartSize.width - chartSize.totalPadding]);
     return scale;
   }
-  var xOption = {name: xName, min: 130, max: 170};
-  var yOption = {name: yName, min: 12, max: 25, reverse: true}
+  var xOption = {name: xName, min: 140, max: 170};
+  var yOption = {name: yName, min: 12, max: 23, reverse: true}
   var xScale = linearScaleFactory(xOption);
   var yScale = linearScaleFactory(yOption);
   var svg = d3.select('#chart').append('svg').attr(chartSize);
@@ -38,13 +38,14 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   });
   g.append('circle').attr({
-    r: function(d) { return Math.sqrt(d.bust - 70) * 4; },
+    r: function(d) { return Math.sqrt(d.bust - 70) * 6; },
     fill: 'black'
   })
   g.append('text').attr({
     'text-anchor': "middle",
     'dy': ".35em",
-    'fill': "white"
+    'fill': "white",
+    'font-size': '13'
   }).text(function(d) { return d.name; })
   svg.append("g").attr({
     "class": "x axis",
