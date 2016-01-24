@@ -28,15 +28,15 @@ window.addEventListener('DOMContentLoaded', function() {
     //REQUIRED
     var name = options['name'];
     var padding = options['padding'];
-    var min = _.minBy(dataset, function(d) { return d[name]; })[name];
-    var max = _.maxBy(dataset, function(d) { return d[name]; })[name];
+    var min = options['min'] === undefined ? _.minBy(dataset, function(d) { return d[name]; })[name] : options['min'];
+    var max = options['max'] === undefined ? _.maxBy(dataset, function(d) { return d[name]; })[name] : options['max'];
     return d3.scale.linear()
                    .domain([min, max])
                    .range([padding + axisPadding,
                            chartSize.width - padding - axisPadding]);
   }
-  var xScale = linearScaleFactory({name: xName, padding: padding});
-  var yScale = linearScaleFactory({name: yName, padding: padding});
+  var xScale = linearScaleFactory({name: xName, padding: padding, min: 130, max: 170});
+  var yScale = linearScaleFactory({name: yName, padding: padding, min: 12, max: 25});
   var svg = d3.select('#chart').append('svg').attr(chartSize);
   var xAxis = d3.svg.axis().scale(xScale).orient("bottom");;
   var yAxis = d3.svg.axis().scale(yScale).orient("left");;
