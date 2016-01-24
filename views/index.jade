@@ -9,6 +9,7 @@ html(lang='ja')
     link(rel='stylesheet' type='text/css' href='stylesheets/index.css')
   body
     div#chart.chart
-    textarea(cols=100 rows=20)
+    textarea#datasource(cols=100 rows=20)
+      = JSON.stringify(data)
     .console
       button#exec 描画
