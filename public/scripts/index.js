@@ -37,7 +37,6 @@ window.addEventListener('DOMContentLoaded', function() {
                   .range([padding + axisPadding,
                           chartSize.width - padding - axisPadding]);
     return scale;
-
   }
   var xOption = {name: xName, padding: padding, min: 130, max: 170};
   var yOption = {name: yName, padding: padding, min: 12, max: 25, reverse: true}
