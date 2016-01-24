@@ -24,7 +24,10 @@ window.addEventListener('DOMContentLoaded', function() {
   var yName = "age";
   var axisPadding = 20;
   var padding = 10;
-  var linearScaleFactory = function(name, padding) {
+  var linearScaleFactory = function(options) {
+    //REQUIRED
+    var name = options['name'];
+    var padding = options['padding'];
     var min = _.minBy(dataset, function(d) { return d[name]; })[name];
     var max = _.maxBy(dataset, function(d) { return d[name]; })[name];
     return d3.scale.linear()
@@ -32,8 +35,8 @@ window.addEventListener('DOMContentLoaded', function() {
                    .range([padding + axisPadding,
                            chartSize.width - padding - axisPadding]);
   }
-  var xScale = linearScaleFactory(xName, padding);
-  var yScale = linearScaleFactory(yName, padding);
+  var xScale = linearScaleFactory({name: xName, padding: padding});
+  var yScale = linearScaleFactory({name: yName, padding: padding});
   var svg = d3.select('#chart').append('svg').attr(chartSize);
   var xAxis = d3.svg.axis().scale(xScale).orient("bottom");;
   var yAxis = d3.svg.axis().scale(yScale).orient("left");;
