@@ -30,8 +30,8 @@ window.addEventListener('DOMContentLoaded', function() {
   var xScale = linearScaleFactory(xOption);
   var yScale = linearScaleFactory(yOption);
   var svg = d3.select('#chart').append('svg').attr(chartSize);
-  var xAxis = d3.svg.axis().scale(xScale).orient("bottom");;
-  var yAxis = d3.svg.axis().scale(yScale).orient("left");;
+  var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+  var yAxis = d3.svg.axis().scale(yScale).orient("left");
   var g = svg.selectAll('g').data(dataset).enter().append('g').attr({
     transform: function(d) {
       return "translate(" + xScale(d[xName]) + ", " + yScale(d[yName]) + ")";
