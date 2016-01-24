@@ -10,8 +10,8 @@ window.addEventListener('DOMContentLoaded', function() {
     chartPadding: 10
   };
   chartSize.totalPadding = chartSize.axisPadding + chartSize.chartPadding;
-  var xName = "height";
-  var yName = "age";
+  var xName = "age";
+  var yName = "height";
   var translateFactory = function(x, y) { return "translate(" + x + ", " + y + ")"; };
   var linearScaleFactory = function(options) {
     // REQUIRED
@@ -26,8 +26,8 @@ window.addEventListener('DOMContentLoaded', function() {
                           chartSize.width - chartSize.totalPadding]);
     return scale;
   }
-  var xOption = {name: xName, min: 140, max: 170};
-  var yOption = {name: yName, min: 12, max: 23, reverse: true}
+  var xOption = {name: xName, min: 12, max: 23 };
+  var yOption = {name: yName, min: 140, max: 170, reverse: true };
   var xScale = linearScaleFactory(xOption);
   var yScale = linearScaleFactory(yOption);
   var svg = d3.select('#chart').append('svg').attr(chartSize);
