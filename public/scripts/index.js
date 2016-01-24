@@ -25,18 +25,31 @@ window.addEventListener('DOMContentLoaded', function() {
   var axisPadding = 20;
   var padding = 10;
   var linearScaleFactory = function(options) {
-    //REQUIRED
+    // REQUIRED
     var name = options['name'];
     var padding = options['padding'];
+    // OPTIONAL
     var min = options['min'] === undefined ? _.minBy(dataset, function(d) { return d[name]; })[name] : options['min'];
     var max = options['max'] === undefined ? _.maxBy(dataset, function(d) { return d[name]; })[name] : options['max'];
-    return d3.scale.linear()
-                   .domain([min, max])
-                   .range([padding + axisPadding,
-                           chartSize.width - padding - axisPadding]);
+
+    var scale = d3.scale.linear();
+    if (options['reverse']) {
+      console.log(name + ' is reversed.')
+      scale.domain([max, min])
+           .range([padding + axisPadding,
+                   chartSize.width - padding - axisPadding]);
+    } else {
+      scale.domain([min, max])
+           .range([padding + axisPadding,
+                   chartSize.width - padding - axisPadding]);
+    }
+    return scale;
+
   }
-  var xScale = linearScaleFactory({name: xName, padding: padding, min: 130, max: 170});
-  var yScale = linearScaleFactory({name: yName, padding: padding, min: 12, max: 25});
+  var xOption = {name: xName, padding: padding, min: 130, max: 170};
+  var yOption = {name: yName, padding: padding, min: 12, max: 25, reverse: true}
+  var xScale = linearScaleFactory(xOption);
+  var yScale = linearScaleFactory(yOption);
   var svg = d3.select('#chart').append('svg').attr(chartSize);
   var xAxis = d3.svg.axis().scale(xScale).orient("bottom");;
   var yAxis = d3.svg.axis().scale(yScale).orient("left");;
