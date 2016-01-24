@@ -12,6 +12,7 @@ window.addEventListener('DOMContentLoaded', function() {
   chartSize.totalPadding = chartSize.axisPadding + chartSize.chartPadding;
   var xName = "height";
   var yName = "age";
+  var translateFactory = function(x, y) { return "translate(" + x + ", " + y + ")"; };
   var linearScaleFactory = function(options) {
     // REQUIRED
     var name = options['name'];
@@ -34,7 +35,7 @@ window.addEventListener('DOMContentLoaded', function() {
   var yAxis = d3.svg.axis().scale(yScale).orient("left");
   var g = svg.selectAll('g').data(dataset).enter().append('g').attr({
     transform: function(d) {
-      return "translate(" + xScale(d[xName]) + ", " + yScale(d[yName]) + ")";
+      return translateFactory(xScale(d[xName]), yScale(d[yName]))
     }
   });
   g.append('circle').attr({
@@ -49,11 +50,11 @@ window.addEventListener('DOMContentLoaded', function() {
   }).text(function(d) { return d.name; })
   svg.append("g").attr({
     "class": "x axis",
-    transform: "translate(0," + (chartSize.height - chartSize.totalPadding) + ")"
+    transform: translateFactory(0, chartSize.height - chartSize.totalPadding)
   }).call(xAxis);
   svg.append("g").attr({
-      "class": "y axis",
-      transform: "translate(" + chartSize.totalPadding +  ", 0)"
+    "class": "y axis",
+    transform: translateFactory(chartSize.totalPadding, 0)
   }).call(yAxis);
 })(document.querySelector.bind(document), document.querySelectorAll.bind(document));
 });
