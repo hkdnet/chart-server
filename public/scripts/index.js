@@ -40,12 +40,12 @@ window.addEventListener('DOMContentLoaded', function() {
   });
   g.append('circle').attr({
     r: function(d) { return Math.sqrt(d.bust - 70) * 6; },
-    fill: 'black'
+    fill: function(d) { return d.color; }
   })
   g.append('text').attr({
     'text-anchor': "middle",
     'dy': ".35em",
-    'fill': "white",
+    'fill': 'black',
     'font-size': '13'
   }).text(function(d) { return d.name; })
   svg.append("g").attr({
