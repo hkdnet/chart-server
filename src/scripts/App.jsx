@@ -10,7 +10,7 @@ export default class App extends React.Component {
   render() {
     return(
       <div className='app'>
-        <Chart />
+        <Chart data={this.props.data} />
         <Console />
       </div>
     );
