@@ -5,12 +5,7 @@ html(lang='ja')
     title simple-chart
     script(src='//cdnjs.cloudflare.com/ajax/libs/d3/3.5.13/d3.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.0.0/lodash.min.js')
-    script(src='scripts/index.js')
+    script(src='scripts/bundle.js')
     link(rel='stylesheet' type='text/css' href='stylesheets/index.css')
   body
     #container
-    div#chart.chart
-    textarea#datasource(cols=100 rows=20)
-      = JSON.stringify(data)
-    .console
-      button#exec 描画

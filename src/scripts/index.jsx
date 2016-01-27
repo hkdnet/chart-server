@@ -1,20 +1,10 @@
-import React from 'react'
+import ReactDom from 'react-dom';
+import React from 'react';
+import App from './App.jsx';
 
-class CommentBox extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return(
-      <div className='commentBox'>
-        Hello, world! I am a CommentBox.
-      </div>
-    );
-  }
-}
-
-React.render(
-  <CommentBox />,
-  document.getElementById('container')
-);
+window.addEventListener('DOMContentLoaded', function() {
+  ReactDom.render(
+    <App />,
+    document.getElementById('container')
+  );
+});
