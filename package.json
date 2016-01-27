@@ -9,7 +9,7 @@
     "build:css": "stylus -u nib -c ./src/stylus/index.styl -o ./lib/bundle.css -m",
     "watch:css": "stylus -u nib -w -c ./src/stylus/index.styl -o ./lib/bundle.css -m",
     "build:js": "browserify ./src/scripts/index.jsx -x remote -x fs -t [ babelify  --presets [ es2015 react ] --plugins babel-plugin-espower ] -o ./public/scripts/bundle.js -d",
-    "watch:js": "watchify ./src/scripts/index.jsx -x remote -x fs -t [ babelify --plugins babel-plugin-espower ] -o ./public/scripts/bundle.js -d",
+    "watch:js": "watchify ./src/scripts/index.jsx -x remote -x fs -t [ babelify --presets [ es2015 react ] --plugins babel-plugin-espower ] -o ./public/scripts/bundle.js -d",
     "build": "npm-run-all -p build:*",
     "watch": "npm-run-all -p watch:*"
   },
