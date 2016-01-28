@@ -25,8 +25,6 @@ export default class Console extends React.Component {
         <select ref="chartType" defaultValue={this.props.chartType}>
           { options }
         </select>
-        <ScatterChartSettings>
-        </ScatterChartSettings>
         <button onClick={this.onClickHandler.bind(this)}>
           反映
         </button>
