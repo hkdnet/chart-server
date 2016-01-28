@@ -24,6 +24,9 @@ export default class Chart extends React.Component {
           width={500}
           height={400}
           title="Scatter Chart"
+          showTooltip={true}
+          xAxisLabel="height"
+          yAxisLabel="bust"
         />
       </div>
     );
