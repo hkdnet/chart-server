@@ -10,13 +10,10 @@ export default class Chart extends React.Component {
   render() {
     var scatterData = [{
       name: 'im@s girls',
-      values: _.map(this.props.data, (d) => {
-        return {
-          x: d.height,
-          y: d.bust
-        }
-      })
+      values: this.props.data
     }];
+    let xName = 'age';
+    let yName = 'height';
     return(
       <div className='chart'>
         <ScatterChart
@@ -25,8 +22,10 @@ export default class Chart extends React.Component {
           height={400}
           title="Scatter Chart"
           showTooltip={true}
-          xAxisLabel="height"
-          yAxisLabel="bust"
+          xAxisLabel={xName}
+          yAxisLabel={yName}
+          xAccessor={d => d[xName] || d.x }
+          yAccessor={d => d[yName] || d.y }
         />
       </div>
     );
